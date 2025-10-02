@@ -1,6 +1,14 @@
-import {configureStore} from '@reduxjs/toolkit'
+import {configureStore,applyMiddleware} from '@reduxjs/toolkit'
 import TodoReducer from '../features/todo/todoSlice'
+import { thunk } from 'redux-thunk'
+
 
 export const Store = configureStore({
-    reducer:TodoReducer
+   reducer:{
+    todos : TodoReducer
+   } ,
+    middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware()
+  ]
+
 })

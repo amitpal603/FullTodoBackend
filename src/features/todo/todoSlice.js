@@ -1,4 +1,5 @@
 import { nanoid, createSlice } from '@reduxjs/toolkit'
+import {FETCH_TODOS_REQUEST,FETCH_TODOS_SUCCESS,FETCH_TODOS_FAILURE} from './action'
 
 const initialState = {
     todos: []    
@@ -59,6 +60,23 @@ export const TodoSlice = createSlice({
     }
 })
 
+ export const fetchTodos = () => {
+    return async(dispatch) => {
+        
+        try {
+            const res = await fetch('http://localhost:3000/api/todo')
+            const data  = await res.json()
+
+            dispatch(addTodo({
+                payload : data
+            }))
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+}
+
 export const { 
     addTodo, 
     deleteTodo, 
@@ -66,7 +84,6 @@ export const {
     updateTodo,
     clearCompleted,
     markAllComplete,
-    markAllIncomplete
 } = TodoSlice.actions
 
 export default TodoSlice.reducer

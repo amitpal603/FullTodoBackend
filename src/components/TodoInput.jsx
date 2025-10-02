@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { addTodo } from '../features/todo/todoSlice'
+import { addTodo,fetchTodos } from '../features/todo/todoSlice'
 
 function TodoInput() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
@@ -25,6 +25,9 @@ function TodoInput() {
     reset()
     setIsSubmitting(false)
   }
+   useEffect(() => {
+      dispatch(fetchTodos())
+   },[])
 
   return (
     <div className="w-full max-w-md mx-auto p-4 sm:p-6">
@@ -128,6 +131,7 @@ function TodoInput() {
         }
       `}</style>
     </div>
+   
   )
 }
 
